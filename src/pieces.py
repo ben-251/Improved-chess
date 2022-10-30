@@ -1,3 +1,5 @@
+from enum import Enum
+
 class piece:
 	name: str
 	position: [0,0]
@@ -9,20 +11,43 @@ class piece:
 		self.name = name
 		self.position = position
 		self.colour = colour
-		self.is_first_move = check_if_first_move(is_first_move)
+		self.forward_direction = self.get_forward_direction()
+		self.is_first_move = self.check_if_first_move(is_first_move)
 		self.is_alive = check_is_alive(is_alive)
-	
-	def check_if_first_move(is_first_move):
+
+	class colour(Enum):
+		BLACK
+		WHITE
+
+	def get_forward_direction(self):
+		if self.colour == "white":
+			return 1
+		elif self.colour == "black":
+			return -1
+		else:
+			raise Exception("the piece is neither white nor black!")
+
+	def check_if_first_move(self,is_first_move):
 		if is_first_move is None:
 			return True
 		else:
 			return is_first_move
 
-	def check_is_alive(is_alive):
+	def check_is_alive(self,is_alive):
+	
 		if is_alive is None:
 			return True
 		else:
 			return is_alive
+
+	def move(self, newPosition, enemy_player): #this method may be better in the player class
+		#since it handles stuff involving all pieces
+		self.remove_captured_pieces() #remove captured pieces if there are eny
+	###check if the move was an en passant capture too 
+		piece.position = position
+		if piece.first_move == True:
+			piece.first_move = False
+
 
 
 class king(piece):
