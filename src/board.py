@@ -17,7 +17,13 @@ class Board:
 		return squares
 		
 	def setup_board(self):
-		self.make_pieces()
+		for colour in ["white","black"]:
+			self.make_pawns(colour)
+			self.make_rooks(colour)
+			self.make_knights(colour)
+			self.make_bishops(colour)
+			self.make_king(colour)
+			self.make_queen(colour)
 
 	def make_pawns(self, colour):
 		for i in range(8):
@@ -54,13 +60,7 @@ class Board:
 		queen = self.pieces[-1]
 		queen.position = [4,queen.get_nth_row(colour,1)]
 
-	def make_pieces(self):
-		for colour in ["white","black"]:
-			self.make_pawns(colour)
-			self.make_rooks(colour)
-			self.make_knights(colour)
-			self.make_bishops(colour)
-			self.make_king(colour)
+
 
 
 

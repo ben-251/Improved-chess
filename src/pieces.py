@@ -12,15 +12,6 @@ class Piece:
 		self.is_first_move = self.check_if_first_move(is_first_move)
 		self.is_alive = self.check_is_alive(is_alive)
 
-	def move(self, board, target_position): #to fix up
-		board.remove_captured_pieces()
-		piece.position = position
-		if piece.first_move == True:
-			piece.first_move = False
-
-	def get_valid_moves(self,board):
-		...
-
 	def get_nth_row(self,colour,n):
 		return self.get_backrank(colour) + ((n-1) * self.get_forward_direction(colour))
 
