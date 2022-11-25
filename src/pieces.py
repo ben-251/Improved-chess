@@ -3,24 +3,48 @@ class Piece:
 	is_first_move: bool
 	is_alive: bool
 	colour: str
+	position =  []
 
-	def __init__(self, name, colour, is_first_move = None, is_alive = None):
+	def __init__(self, name, colour, position = None, is_first_move = None, is_alive = None):
 		self.name = name
 		self.colour = colour
-		self.forward_direction = self.get_forward_direction() #this space is the wrong level of abstraction
+		self.position = self.set_default_position(position)
 		self.is_first_move = self.check_if_first_move(is_first_move)
-		self.is_alive = check_is_alive(is_alive)
+		self.is_alive = self.check_is_alive(is_alive)
+
+	def move(self, board, target_position): #to fix up
+		board.remove_captured_pieces()
+		piece.position = position
+		if piece.first_move == True:
+			piece.first_move = False
 
 	def get_valid_moves(self,board):
 		...
 
-	def get_forward_direction(self):
-		if self.colour == "white":
+	def get_nth_row(self,colour,n):
+		return self.get_backrank(colour) + ((n-1) * self.get_forward_direction(colour))
+
+	def get_forward_direction(self,colour):
+		if colour == "white":
 			return 1
-		elif self.colour == "black":
+		elif colour == "black":
 			return -1
 		else:
 			raise Exception("the piece is neither white nor black!")
+
+	def get_backrank(self,colour):
+		if colour == "white":
+			return 1
+		elif colour == "black":
+			return 8
+		else:
+			raise Exception("the piece is neither white nor black!")			
+
+	def set_default_position(self,position):
+		if position is None:
+			return []
+		else:
+			return position
 
 	def check_if_first_move(self,is_first_move):
 		if is_first_move is None:
@@ -34,26 +58,26 @@ class Piece:
 		else:
 			return is_alive
 
-class King(piece):
-	def __init__(self, name, colour, is_first_move = None, is_alive = None):
-		super.__init__(self, name, colour, is_first_move = None, is_alive = None)
+class King(Piece):
+	def __init__(self, name, colour, position = None, is_first_move = None, is_alive = None):
+		super().__init__(name, colour, position, is_first_move, is_alive)
 
-class Queen(piece):
-		def __init__(self, name, colour, is_first_move = None, is_alive = None): 
-			super.__init__(self, name, colour, is_first_move = None, is_alive = None)
+class Queen(Piece):
+	def __init__(self, name, colour, position = None, is_first_move = None, is_alive = None): 
+		super().__init__(name, colour, position, is_first_move, is_alive)
 
-class Pawn(piece):
-	def __init__(self, name, colour, is_first_move = None, is_alive = None): 
-			super.__init__(self, name, colour, is_first_move = None, is_alive = None)
+class Pawn(Piece):
+	def __init__(self, name, colour, position = None, is_first_move = None, is_alive = None): 
+		super().__init__(name, colour, position, is_first_move, is_alive)
 
-class Rook(piece):
-	def __init__(self, name, colour, is_first_move = None, is_alive = None): 
-			super.__init__(self, name, colour, is_first_move = None, is_alive = None)
+class Rook(Piece):
+	def __init__(self, name, colour, position = None, is_first_move = None, is_alive = None): 
+		super().__init__(name, colour, position, is_first_move, is_alive)
 
-class Bishop(piece):
-	def __init__(self, name, colour, is_first_move = None, is_alive = None): 
-			super.__init__(self, name, colour, is_first_move = None, is_alive = None)
+class Bishop(Piece):
+	def __init__(self, name, colour, position = None, is_first_move = None, is_alive = None): 
+		super().__init__(name, colour, position, is_first_move, is_alive)
 
-class Knight(piece):
-	def __init__(self, name, colour, is_first_move = None, is_alive = None): 
-			super.__init__(self, name, colour, is_first_move = None, is_alive = None)
+class Knight(Piece):
+	def __init__(self, name, colour, position = None, is_first_move = None, is_alive = None): 
+		super().__init__(name, colour, position, is_first_move, is_alive)
