@@ -5,6 +5,7 @@ import copy
 class Board:
 	pieces = []
 	squares = []
+	valid_squares: Valid_squares
 
 	def __init__(self,size):
 		self.squares = self.make_board(size)
@@ -46,15 +47,7 @@ class Board:
 		square[1] += logic.sign(offset[1])
 		return square
 
-	
-	def remove_blocked_squares(self,piece,valid_squares):
-		# will allow you to land on a square if it HAS a piece, 
-		# then later on check it its enemy or not
 
-		#doesnt work for knights
-		all_positions = self.get_all_positions()
-		for square in valid_squares:
-			self.is_piece_between(square,piece)
 
 	def is_piece_between(self,square,piece):
 		'''
@@ -74,12 +67,6 @@ class Board:
 			square_in_path = self.move_one_forward(square_in_path, delta)
 			return False
 				
-	def get_valid_squares(self,piece):
-		piece_offsets = piece.get_offsets()
-		valid_squares = piece.get_squares_from_offsets()
-		self.remove_blocked_squares(piece,valid_squares)
-
-
 
 
 	def make_pawns(self, colour):
@@ -121,3 +108,27 @@ class Board:
 
 
 
+class Valid_square_maker:
+	valid_squares = []
+	piece: Piece
+	board: Board
+
+	def __init__(self, piece,board):
+		self.piece = piece
+		self.board = board
+		self.valid_squares = self.get_valid_squares()
+
+	def get_valid_squares(self):
+		piece_offsets = board.piece.get_offsets()
+		valid_squares = self.piece.get_squares_from_offsets()
+		valid_squares = self.remove_blocked_squares(piece,valid_squares)
+
+		
+	def remove_blocked_squares(self,piece,valid_squares):
+		# will allow you to land on a square if it HAS a piece, 
+		# then later on check it its enemy or not
+
+		#doesnt work for knights
+		all_positions = self.get_all_positions()
+		for square in valid_squares:
+			self.is_piece_between(square,piece)
