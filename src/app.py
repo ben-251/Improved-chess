@@ -27,4 +27,7 @@ class app():
 			self.current_player = "black" 
 		elif self.current_player == "black":
 			self.current_player = "white"
+	
+	def enter_piece_position():
+		...
 

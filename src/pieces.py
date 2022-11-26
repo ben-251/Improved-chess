@@ -1,3 +1,5 @@
+import logic
+
 class Piece:
 	name: str
 	is_first_move: bool
@@ -12,6 +14,16 @@ class Piece:
 		self.is_first_move = self.check_if_first_move(is_first_move)
 		self.is_alive = self.check_is_alive(is_alive)
 
+	def get_offsets(self):
+		pass
+
+	def get_squares_from_offsets(self,offsets):
+		squares = []
+		for offset_x,offset_y in offsets:
+			new_valid_square = [self.position[0] + offset_x, self.position[1] + offset_y]
+			squares.append(new_valid_square)
+		return squares
+
 	def get_nth_row(self,colour,n):
 		return self.get_backrank(colour) + ((n-1) * self.get_forward_direction(colour))
 
@@ -22,6 +34,12 @@ class Piece:
 			return -1
 		else:
 			raise Exception("the piece is neither white nor black!")
+
+	def get_ememy_colour(self):
+		if self.colour == "white":
+			return "black"
+		elif self.colour == "black":
+			return "white"
 
 	def get_backrank(self,colour):
 		if colour == "white":
